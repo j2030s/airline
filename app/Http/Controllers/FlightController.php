@@ -106,4 +106,32 @@ public function destroy(Flight $flight)
         return redirect()->route('flights.f_index')->with('success', 'Flight deleted successfully!');
     }
 
+
+
+
+
+
+
+///search flights
+
+
+public function search(Request $request)
+{
+    // Retrieve search criteria from the request
+    $departingAirport = $request->input('departing_airport');
+    $arrivingAirport = $request->input('arriving_airport');
+    $date = $request->input('date');
+    $class = $request->input('class');
+
+    // Perform flight search based on the criteria
+    $flights = Flight::where('departure_airport_id', $departingAirport)
+                     ->where('arrival_airport_id', $arrivingAirport)
+                     ->whereDate('departure_date', $date)
+                     ->where('class', $class)
+                     ->get();
+
+    // Pass the search results to the view
+    return view('flights.search-results', ['flights' => $flights]);
+}
+
 }
