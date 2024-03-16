@@ -134,4 +134,5 @@ public function search(Request $request)
     return view('flights.search-results', ['flights' => $flights]);
 }
 
+
 }

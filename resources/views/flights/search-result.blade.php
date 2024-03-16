@@ -7,8 +7,42 @@
 @section('content')
     <div class="container mt-4">
         <h2>Search Results</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                  
+                    <th>Flight Number</th>
+                    <th>Departure Airport</th>
+                    <th>Arrival Airport</th>
+                    <th>Departure Date</th>
+                    <th>Flight Class</th>
+                    <th>Price</th>
+                    <th>Book</th>
+                    
+                    <!-- Add more columns as needed -->
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($flights as $flight)
+                    <tr>
+                       
+                        <td>{{ $flight->flight_number }}</td>
+                        <td>{{ $flight->departureAirport->name }}</td>
+                        <td>{{ $flight->arrivalAirport->name }}</td>
+                        <td>{{ $flight->departure_date }}</td>
+                        <td>{{ $flight->class }}</td>
 
-        @if($flights->isEmpty())
+                        <td>{{ $flight->price }}</td>
+                        <td>
+                            <button type="submit">Book</button>
+                        </td>
+                       
+                        
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+        {{-- @if($flights->isEmpty())
             <p>No flights found for the given criteria.</p>
         @else
             <div class="row">
@@ -31,5 +65,5 @@
                 
             </div>
         @endif
-    </div>
+    </div> --}}
 @endsection

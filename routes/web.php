@@ -61,6 +61,30 @@ route::get('/user', [UserController::class, 'user'])->name('user');
 
 
 
+
+
+
+Route::get('/users', [UserController::class, 'index'])->name('users.index');
+Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
+Route::post('/users', [UserController::class, 'store'])->name('users.store');
+Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
+Route::put('/users/{user}',  [UserController::class, 'update'])->name('users.update');
+Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // routes for airport management
 
 
@@ -71,7 +95,7 @@ Route::get('/airports/{airport}/a_edit', [AirportController::class, 'edit'])->na
 Route::put('/airports/{airport}',  [AirportController::class, 'update'])->name('airports.update');
 Route::delete('/airports/{airport}',[AirportController::class, 'destroy'])->name('airports.destroy');
 
-
+Route::get('/airports/search', [AirportController::class, 'search'])->name('airports.search');
 
    // CRUD Flight
 

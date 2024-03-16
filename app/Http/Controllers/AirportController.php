@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Airports;
+use App\Models\Flights;
 
 class AirportController extends Controller
 {
@@ -13,6 +14,13 @@ class AirportController extends Controller
     {
         $airports = Airports::all();
         return view('airports.a_index', compact('airports'));
+
+        
+    // Fetch the list of airports
+    $airports = Airports::all();
+    
+    // Pass the airports data to the view
+    return view('search', ['airports' => $airports]);
     }
 
 
@@ -79,5 +87,30 @@ public function destroy(Airports $airport)
     return redirect()->route('airports.a_index')->with('success', 'Airport deleted successfully!');
 }
 
+
+
+
+
+
+
+
+
+//search 
+
+public function search(Request $request ){
+ $departing_airport = $request['departing_airport'] ?? "";
+ $arriving_airport = $request['arriving_airport'] ?? "";
+ $date = $request['date'] ?? "";
+ $class = $request['class'];
+
+ $data = Airports::join();
+ 
+ if($departing_airport != ""){
+    $airports = Airports::where('id','=',$departing_airport);
+    $flights = Flights::where('class','=', $class);
+ }else{
+    return view('airports.a_index');
+ }
+}
 }
 

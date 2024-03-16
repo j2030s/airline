@@ -1,56 +1,11 @@
-<!-- layouts/app.blade.php -->
+@extends('layouts.app')
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'My App')</title>
-
-    
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.17.0/font/bootstrap-icons.css" rel="stylesheet">
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.17.0/font/bootstrap-icons.css" rel="stylesheet">
-    <!-- Bootstrap JS and Popper.js -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-</head>
-
-<body class="d-flex flex-column h-100">
-    
-        <!-- Sidebar -->
-        <header>
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark ms-auto fixed-top ">
-                <div class="container">
-                    <a class="navbar-brand" href="#">PUC AIRLINES</a>
-
-                    <button 
-                    class="navbar-toggler" 
-                    type="button" 
-                    data-bs-toggle="collapse" 
-                    data-bs-target="#navbarNav"
-                    >
-                    <span class="navbar-toggler-icon"></span>
-                    </button>
-
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav ms-auto p-2">
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Log in</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#Registration">Registration</a>
-                            </li>
-                            <!-- Add more menu items as needed -->
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-        </header>
+@section('title', 'Admin Page')
         
 
-        
+@section('content')     
+
+
             <!-- Main Content -->
     <main class="flex-grow-1 d-flex">
          <!-- Sidebar -->
@@ -103,12 +58,41 @@
         </ul>
 
         <div class="card p-3 mt-3">
-            <form action="{{ route('flights.search') }}" method="GET">
+            <form action="{{ route('airports.search') }}" method="GET">
                 <label for="departing_airport">Departing Airport:</label>
-                <input type="text" name="departing_airport" id="departing_airport">
+                <input type="text" name="departing_airport" id="departing_airport" list="airport_suggestions">
+                <datalist id="airport_suggestions"></datalist>
                 
                 <label for="arriving_airport">Arriving Airport:</label>
-                <input type="text" name="arriving_airport" id="arriving_airport">
+                <input type="text" name="arriving_airport" id="arriving_airport" list="airport_suggestions">
+                <datalist id="airport_suggestions"></datalist>
+
+                <script>
+                    document.getElementById('departing_airport').addEventListener('input', function() {
+                        fetchAirports(this.value, 'departing_airport');
+                    });
+                
+                    document.getElementById('arriving_airport').addEventListener('input', function() {
+                        fetchAirports(this.value, 'arriving_airport');
+                    });
+                
+                    function fetchAirports(query, inputId) {
+                        fetch('{{ route('airports.search') }}?query=' + query)
+                            .then(response => response.json())
+                            .then(data => {
+                                const airportSuggestions = document.getElementById(inputId).list;
+                                airportSuggestions.innerHTML = '';
+                
+                                data.forEach(airport => {
+                                    const option = document.createElement('option');
+                                    option.value = airport.name;
+                                    airportSuggestions.appendChild(option);
+                                });
+                            })
+                            .catch(error => console.error(error));
+                    }
+                </script>
+                
                 
                 <label for="date">Date:</label>
                 <input type="date" name="date" id="date">
@@ -193,39 +177,8 @@
             </div>
        
 
-
+            @endsection
    
-           
-    <!-- Footer -->
-    <footer class="footer bg-dark navbar-dark mt-auto position-relative">
-        <div class="container-fluid col-md-9 text-light">
-            <div class="row">
-                <div class="col-md-4">
-                    <h5>Contact Us</h5>
-                    <p>Email: info@yourairlinesystem.com</p>
-                    <p>Phone: +1 (555) 123-4567</p>
-                </div>
-                <div class="col-md-4">
-                    <h5>Quick Links</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="#">Where We Fly</a></li>
-                        <li><a href="#">User Experience</a></li>
-                        <li><a href="#">Help</a></li>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Terms & Conditions</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-4">
-                    <h5>Connect with Us</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="#" target="_blank">Facebook</a></li>
-                        <li><a href="#" target="_blank">Twitter</a></li>
-                        <li><a href="#" target="_blank">Instagram</a></li>
-                    </ul>
-                </div>
-           
-    </footer>
-    
-</body>
-</html>
+        @php
+            $hideNav = true;
+        @endphp

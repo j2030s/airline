@@ -22,6 +22,38 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.17.0/font/bootstrap-icons.css" rel="stylesheet">
     <!-- Bootstrap JS and Popper.js -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+    <style>
+        body {
+          display: flex;
+          flex-direction: column;
+          min-height: 100vh;
+        }
+        .content {
+          flex: 1;
+        }
+        .footer {
+          background-color: #f8f9fa;
+          padding: 20px 0;
+          text-align: center;
+        }
+      </style>
+
+
+
+
+
+
+
+
+
+
 </head>
 <body>
     <body class="d-flex flex-column h-100">
@@ -81,6 +113,8 @@
         </header>
         <!-- Main Content -->
     <main class="flex-grow-1 d-flex mt-3">
+
+        @if(!isset($hideNav) || !$hideNav)
         <!-- Sidebar -->
         <nav id="sidebar"  class="bg-dark text-light position-fixed " style="height: 100%;width:180px; ">
         <!-- Sidebar content goes here -->
@@ -90,7 +124,16 @@
         </ul>
    </nav>
 
+   @endif
 
+
+
+
+
+
+
+
+   
    <!-- Your main content goes here -->
    <div class="container-fluid " style="margin-top: 56px;">
        <div class="row">
@@ -129,7 +172,7 @@
        <br><br><br>
        </div> 
 <!-- Footer -->
-<footer class="footer bg-dark navbar-dark mt-5 position-relative">
+<footer class="footer bg-dark navbar-dark mt-auto position-relative">
    <div class="container-fluid col-md-9 text-light">
        <div class="row">
            <div class="col-md-4">

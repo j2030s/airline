@@ -23,4 +23,5 @@ if (Auth::user()->role !== 'admin') {
 
 return $next($request);
 }
+
 }
