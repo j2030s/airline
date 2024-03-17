@@ -17,7 +17,8 @@ if (!Auth::check()) {
 }
 
 // Check if the user has admin role
-if (Auth::user()->role !== 'admin') {
+if (Auth::user()->role_id !== 1) {
+    
     return redirect('/')->with('error', 'You do not have permission to access this page.');
 }
 

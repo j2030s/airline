@@ -1,12 +1,11 @@
 <?php
 
-// app/Http/Controllers/FlightController.php
 namespace App\Http\Controllers;
-
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Flights;
-use App\Models\Airports; // Import Airport model to fetch airports
-use App\Models\FlightClass; // Import FlightClass model to fetch flight classes
+use App\Models\Airports;
+
 
 class FlightController extends Controller
 {
@@ -20,8 +19,7 @@ class FlightController extends Controller
     public function create()
     {
         $airports = Airports::all();
-       
-        $classOptions = ['Economy Class', 'Business Class', 'First Class'];
+        $classOptions = ['economy', 'business', 'first']; 
         return view('flights.f_create', compact('airports', 'classOptions'));
     }
 
@@ -36,83 +34,59 @@ class FlightController extends Controller
             'price' => 'required|numeric',
         ]);
 
-        Flight::create([
+        Flights::create([
             'flight_number' => $request->flight_number,
             'departure_airport_id' => $request->departure_airport_id,
             'arrival_airport_id' => $request->arrival_airport_id,
             'departure_date' => $request->departure_date,
-            'class' => $request->class, 
+            'class' => $request->class,
             'price' => $request->price,
         ]);
 
         return redirect()->route('flights.f_index')->with('success', 'Flight created successfully!');
     }
 
-    
     // edit
+    public function edit(Flights $flight)
+    {
+        $airports = Airports::all();
+        $classOptions = ['economy', 'business', 'first']; 
+        return view('flights.f_edit', compact('flight', 'airports', 'classOptions'));
+    }
 
-   // app/Http/Controllers/FlightController.php
+    // update
+    public function update(Request $request, Flights $flight)
+    {
+        $request->validate([
+            'flight_number' => 'required|string|max:255',
+            'departure_airport_id' => 'required|exists:airports,id',
+            'arrival_airport_id' => 'required|exists:airports,id',
+            'departure_date' => 'required|date',
+            'class' => 'nullable|string|max:255', 
+            'price' => 'required|numeric',
+        ]);
 
-public function edit(Flight $flight)
-{
-    $airports = Airport::all();
-    $classOptions = ['Economy Class', 'Business Class', 'First Class']; 
+        $flight->update([
+            'flight_number' => $request->flight_number,
+            'departure_airport_id' => $request->departure_airport_id,
+            'arrival_airport_id' => $request->arrival_airport_id,
+            'departure_date' => $request->departure_date,
+            'class' => $request->class,
+            'price' => $request->price,
+        ]);
 
-    return view('flights.f_edit', compact('flight', 'airports', 'classOptions'));
-}
+        return redirect()->route('flights.f_index')->with('success', 'Flight updated successfully!');
+    }
 
-    
-
-
-
-
-
-
-
-// update
-// app/Http/Controllers/FlightController.php
-
-public function update(Request $request, Flight $flight)
-{
-    $request->validate([
-        'flight_number' => 'required|string|max:255',
-        'departure_airport_id' => 'required|exists:airports,id',
-        'arrival_airport_id' => 'required|exists:airports,id',
-        'departure_date' => 'required|date',
-        'class' => 'nullable|string|max:255', 
-        'price' => 'required|numeric',
-    ]);
-
-    $flight->update([
-        'flight_number' => $request->flight_number,
-        'departure_airport_id' => $request->departure_airport_id,
-        'arrival_airport_id' => $request->arrival_airport_id,
-        'departure_date' => $request->departure_date,
-        'class' => $request->class,
-        'price' => $request->price,
-    ]);
-
-    return redirect()->route('flights.f_index')->with('success', 'Flight updated successfully!');
-}
-
-
-
-// delete
-
-public function destroy(Flight $flight)
+    // delete
+    public function destroy(Flights $flight)
     {
         $flight->delete();
-
         return redirect()->route('flights.f_index')->with('success', 'Flight deleted successfully!');
     }
 
+    // flight searching
 
-
-
-
-
-
-///search flights
 
 
 public function search(Request $request)
@@ -120,18 +94,21 @@ public function search(Request $request)
     // Retrieve search criteria from the request
     $departingAirport = $request->input('departing_airport');
     $arrivingAirport = $request->input('arriving_airport');
-    $date = $request->input('date');
+    
+    // Convert the submitted date to the Y-m-d format
+    $date = date('Y-m-d', strtotime($request->input('date')));
+    
     $class = $request->input('class');
 
     // Perform flight search based on the criteria
-    $flights = Flight::where('departure_airport_id', $departingAirport)
+    $flights = Flights::where('departure_airport_id', $departingAirport)
                      ->where('arrival_airport_id', $arrivingAirport)
                      ->whereDate('departure_date', $date)
                      ->where('class', $class)
                      ->get();
 
-    // Pass the search results to the view
-    return view('flights.search-results', ['flights' => $flights]);
+    // Return the search results to the view
+    return view('flights.search-result', ['flights' => $flights]);
 }
 
 

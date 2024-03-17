@@ -57,60 +57,72 @@
 </head>
 <body>
     <body class="d-flex flex-column h-100">
-    <header>
-        <div id="app">
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark ms-auto shadow-sm fixed-top">
-                <div class="container">
-                    <a class="navbar-brand" href="{{ url('/') }}">
-                        PUC AIRLINES
-                    </a>
+        <header>
+            <div id="app">
+                <nav class="navbar navbar-expand-lg navbar-dark bg-dark ms-auto shadow-sm fixed-top">
+                    <div class="container">
+                        <a class="navbar-brand" href="{{ url('/') }}">
+                            PUC AIRLINES
+                        </a>
                     
-    
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <!-- Left Side Of Navbar -->
-                        <ul class="navbar-nav me-auto">
-    
-                        </ul>
-    
-                        <!-- Right Side Of Navbar -->
-                        <ul class="navbar-nav ms-auto">
-                            <!-- Authentication Links -->
-                            @guest
-                                @if (Route::has('login'))
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                    </li>
-                                @endif
-    
-                                @if (Route::has('register'))
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                    </li>
-                                @endif
-                            @else
-                                <li class="nav-item dropdown">
-                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                        {{ Auth::user()->name }}
-                                    </a>
-    
-                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="{{ route('logout') }}"
-                                           onclick="event.preventDefault();
-                                                         document.getElementById('logout-form').submit();">
-                                            {{ __('Logout') }}
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <!-- Left Side Of Navbar -->
+                            <ul class="navbar-nav me-auto">
+        
+                            </ul>
+        
+                            <!-- Right Side Of Navbar -->
+                            <ul class="navbar-nav ms-auto">
+                                <!-- Authentication Links -->
+                                @guest
+                                    @if (Route::has('login'))
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                        </li>
+                                    @endif
+        
+                                    @if (Route::has('register'))
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                        </li>
+                                    @endif
+                                @else
+                                    <li class="nav-item dropdown">
+                                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                            {{ Auth::user()->name }}
                                         </a>
-    
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                            @csrf
-                                        </form>
-                                    </div>
-                                </li>
-                            @endguest
-                        </ul>
+        
+                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                            @if(Auth::user()->role_id === 1)
+                                                <a class="dropdown-item" href="{{ route('admin') }}">
+                                                    Admin Dashboard
+                                                </a>
+                                            @elseif(Auth::user()->role_id === 2)
+                                                <a class="dropdown-item" href="{{ route('user') }}">
+                                                    User Dashboard
+                                                </a>
+                                            @endif
+                                            
+                                            <a class="dropdown-item" href="{{ route('logout') }}"
+                                               onclick="event.preventDefault();
+                                                             document.getElementById('logout-form').submit();">
+                                                {{ __('Logout') }}
+                                            </a>
+        
+                                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                                @csrf
+                                            </form>
+                                        </div>
+                                    </li>
+                                @endguest
+                            </ul>
+                        </div>
                     </div>
-                </div>
-            </nav>
+                </nav>
+            </div>
         </header>
+        
+        
         <!-- Main Content -->
     <main class="flex-grow-1 d-flex mt-3">
 

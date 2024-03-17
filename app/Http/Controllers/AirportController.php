@@ -11,17 +11,14 @@ use App\Models\Flights;
 class AirportController extends Controller
 {
     public function index()
-    {
-        $airports = Airports::all();
-        return view('airports.a_index', compact('airports'));
-
-        
+{
     // Fetch the list of airports
     $airports = Airports::all();
-    
+    // $departingAirports = Airports::all();
+
     // Pass the airports data to the view
-    return view('search', ['airports' => $airports]);
-    }
+    return view('airports.a_index', compact('airports'));
+}
 
 
 
@@ -96,21 +93,45 @@ public function destroy(Airports $airport)
 
 
 //search 
+public function search(Request $request)
+{
+    // Retrieve search criteria from the request
+    $departingAirport = $request->input('departing_airport');
+    $arrivingAirport = $request->input('arriving_airport');
+    $date = $request->input('date');
+    $class = $request->input('class');
 
-public function search(Request $request ){
- $departing_airport = $request['departing_airport'] ?? "";
- $arriving_airport = $request['arriving_airport'] ?? "";
- $date = $request['date'] ?? "";
- $class = $request['class'];
+    // Perform flight search based on the criteria
+    $flightsQuery = Flights::query();
+    // $airports = Airports::query();
+    // $departingAirport = Flights :: join('airports','flights.departure_airport_id','=','airports.id')->select('airports.name as name')->get();
+    // $departingAirport = Flights :: join('airports','flights.arrival_airport_id','=','airports.id')->select('airports.name as name')->get;
+    
 
- $data = Airports::join();
- 
- if($departing_airport != ""){
-    $airports = Airports::where('id','=',$departing_airport);
-    $flights = Flights::where('class','=', $class);
- }else{
-    return view('airports.a_index');
- }
+    if ($departingAirport) {
+        $flightsQuery->where('departure_airport_id', $departingAirport);
+    }
+
+    if ($arrivingAirport) {
+        $flightsQuery->where('arrival_airport_id', $arrivingAirport);
+    }
+
+    if ($date) {
+        $flightsQuery->whereDate('departure_date', $date);
+    }
+
+    if ($class) {
+        $flightsQuery->where('class', $class);
+    }
+
+    $flights = $flightsQuery->get();
+    // $departingAirport = Flights :: join('airports','flights.departure_airport_id','=','airports.id')->select('airports.name as name')->get();
+    // $departingAirport = Flights :: join('airports','flights.arrival_airport_id','=','airports.id')->select('airports.name as name')->get;
+    // Return the search results to the view
+    return view('flights.search-result', compact('flights'));
 }
+
+
+
 }
 

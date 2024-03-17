@@ -21,6 +21,7 @@ return new class extends Migration {
 
             $table->dateTime('departure_date');
             $table->enum('class', ['economy', 'business', 'first']);
+           
             $table->decimal('price', 10, 2);
             $table->timestamps();
         });

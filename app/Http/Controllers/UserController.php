@@ -7,11 +7,37 @@ use App\Models\User;
 
 class UserController extends Controller
 {
+    
+    
+    
+    
+    
     public function index()
     {
         $users = User::all();
         return view('users.index', compact('users'));
     }
+
+
+
+
+    public function user()
+    {
+        $user = auth()->user(); // Get the currently authenticated use
+
+        // Load any additional user-related data such as booked flights
+        // $bookedFlights = $user->flights()->get(); // Assuming a relationship between User and Flight models exists
+
+        // Return the user dashboard view with the user and flight data
+        return view('user', compact('user'));
+    }
+
+
+
+
+
+
+
 
     public function create()
     {

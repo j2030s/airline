@@ -2,25 +2,28 @@
 
 @section('title', 'Admin Flight Manage Page')
 
+
+
 @section('side-items')
 
     <li class="nav-item">
-        <a class="nav-link" href="#">Airports</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="#">Users</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="#">Flights</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="#">Bookings</a>
+        <a class="nav-link" href="{{ route('airports.a_index') }}">Airports</a>
     </li>
 
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('users.index') }}">Users</a>
+    </li>
 
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('flights.f_index') }}">Flights</a>
+    </li>
 
+    <li class="nav-item">
+        <a class="nav-link" href= "{{ route('airports.a_index') }}">Bookings</a>
+    </li>
+
+    
 @endsection
-
 
 @section('content')
     <div class="container mt-4">
@@ -68,7 +71,7 @@
         <div class="mb-3">
             <label for="class" class="form-label">Flight Class</label>
             <select class="form-select" id="class" name="class" required>
-                <option value="">Select Flight Class</option>
+                
                 @foreach($classOptions as $class)
                     <option value="{{ $class }}">{{ $class }}</option>
                 @endforeach

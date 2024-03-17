@@ -4,23 +4,28 @@
 
 @section('title', 'Admin Airport Management')
 
+
+
+
 @section('side-items')
 
     <li class="nav-item">
-        <a class="nav-link" href="#">Airports</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="#">Users</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="#">Flights</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="#">Bookings</a>
+        <a class="nav-link" href="{{ route('airports.a_index') }}">Airports</a>
     </li>
 
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('users.index') }}">Users</a>
+    </li>
 
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('flights.f_index') }}">Flights</a>
+    </li>
 
+    <li class="nav-item">
+        <a class="nav-link" href= "{{ route('airports.a_index') }}">Bookings</a>
+    </li>
+
+    
 @endsection
 
 

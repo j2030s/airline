@@ -4,6 +4,7 @@
 
 @section('title', 'Book Flight')
 
+
 @section('content')
     <div class="container mt-4">
         <h2>Book Flight</h2>

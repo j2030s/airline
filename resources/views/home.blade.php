@@ -23,8 +23,8 @@
                 <div class="d-sm-flex col-md-8 align-items-center justify-content-between mx-auto">
                     <div> <br><br> <br>
                         <h1>Fly Higher with us!</h1>
-                        <h6>Welcome to PUC Airlines, your gateway to the skies! <br> Seamless and personalized flight booking experience.
-                             </h6>
+                        <b><i><h6>Welcome to PUC Airlines, your gateway to the skies!
+                             </h6> </i></b>
                     </div>
                     
                         <img class="img-fluid  w-50 ms-auto" src="img/bbard.png" >
@@ -35,83 +35,60 @@
             
         </div>
     </section>
-    <section class=" text-center  p-6">
-        <h1>
-            search available fights
-        </h1>
 
+
+
+    <section class="p-6">
         
-    <div class="container mt-5">
-        <ul class="nav nav-tabs">
-            <li class="nav-item">
-                <a class="nav-link active" href="#">Search flights</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Manage booking / Check in</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">What's on your flight</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Flight status</a>
-            </li>
-        </ul>
 
-        <div class="card p-3 mt-3">
-            <form action="{{ route('airports.search') }}" method="GET">
-                <label for="departing_airport">Departing Airport:</label>
-                <input type="text" name="departing_airport" id="departing_airport" list="airport_suggestions">
-                <datalist id="airport_suggestions"></datalist>
-                
-                <label for="arriving_airport">Arriving Airport:</label>
-                <input type="text" name="arriving_airport" id="arriving_airport" list="airport_suggestions">
-                <datalist id="airport_suggestions"></datalist>
+<div class="container mt-5">
+    <ul class="nav nav-tabs p-3 mt-3 ml-6" style="max-width: 750px;">
+        <li class="nav-item">
+           <h3>Search flights</h3>
+        </li>
+    </ul>
 
-                <script>
-                    document.getElementById('departing_airport').addEventListener('input', function() {
-                        fetchAirports(this.value, 'departing_airport');
-                    });
-                
-                    document.getElementById('arriving_airport').addEventListener('input', function() {
-                        fetchAirports(this.value, 'arriving_airport');
-                    });
-                
-                    function fetchAirports(query, inputId) {
-                        fetch('{{ route('airports.search') }}?query=' + query)
-                            .then(response => response.json())
-                            .then(data => {
-                                const airportSuggestions = document.getElementById(inputId).list;
-                                airportSuggestions.innerHTML = '';
-                
-                                data.forEach(airport => {
-                                    const option = document.createElement('option');
-                                    option.value = airport.name;
-                                    airportSuggestions.appendChild(option);
-                                });
-                            })
-                            .catch(error => console.error(error));
-                    }
-                </script>
-                
-                
-                <label for="date">Date:</label>
-                <input type="date" name="date" id="date">
-            
-                <label for="class">Class:</label>
-                <select name="class" id="class">
-                    <option value="economy">Economy</option>
-                    <option value="business">Business</option>
+    <div class="card p-3 mt-3 ml-6" style="max-width: 750px;">
+        <form action="{{ route('flights.search') }}" method="GET">
+            <div class="mb-3">
+                    <select id="setectRole" name="departing_airport" class="form-select form-control"
+                                        aria-label="Default select example">
+                                        <option selected value="">Departing Airport</option>
+                                        @foreach($departingAirports as $airport)
+                                        <option value="{{ $airport->id }}">{{ $airport->name }}</option>
+                                    @endforeach 
+                                    </select>
+            </div>
+
+            <div class="mb-3">
+                <select id="setectRole" name="arriving_airport" class="form-select form-control"
+                                    aria-label="Default select example">
+                                    <option selected value="">Arriving Airport</option>
+                                    @foreach($departingAirports as $airport)
+                                    <option value="{{ $airport->id }}">{{ $airport->name }}</option>
+                                @endforeach 
+                                </select>
+        </div>
+
+            <div class="mb-3">
+                <label for="date" class="form-label">Departing Date:</label>
+                <input type="date" name="date" id="date" class="form-control">
+            </div>
+
+            <div class="mb-3">
+                <label for="class" class="form-label">Class:</label>
+                <select name="class" id="class" class="form-select">
+                    <option value="economy">Economy Class</option>
+                    <option value="business">Business Class</option>
                     <option value="first">First Class</option>
                 </select>
-                
-                <button type="submit">Search</button>
-            </form>
-             
-        </div>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
     </div>
-
-    <br><br>
-    </section>
+</div>
+ </section>
 
 
 
