@@ -4,12 +4,12 @@
 
 
 
-
 @section('side-items')
 
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('airports.a_index') }}">Airports</a>
-    </li>
+
+<li class="nav-item">
+    <a class="nav-link" href="{{ route('airports.a_index') }}">Airports</a>
+</li>
 
     <li class="nav-item">
         <a class="nav-link" href="{{ route('users.index') }}">Users</a>
@@ -20,7 +20,7 @@
     </li>
 
     <li class="nav-item">
-        <a class="nav-link" href= "{{ route('airports.a_index') }}">Bookings</a>
+        <a class="nav-link" href= "{{ route('bookings.index') }}">Bookings</a>
     </li>
 
     

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Bookings;
 
 class UserController extends Controller
 {
@@ -23,13 +24,15 @@ class UserController extends Controller
 
     public function user()
     {
-        $user = auth()->user(); // Get the currently authenticated use
+        // Get the currently authenticated use
+        $user = auth()->user(); 
 
-        // Load any additional user-related data such as booked flights
-        // $bookedFlights = $user->flights()->get(); // Assuming a relationship between User and Flight models exists
+       // Retrieve the bookings associated with the logged-in user
+        $bookings = Bookings::where('user_id', auth()->user()->id)->with('flight')->get();
 
-        // Return the user dashboard view with the user and flight data
-        return view('user', compact('user'));
+
+            // Return the user dashboard view with the user and flight data
+    return view('user', compact('user', 'bookings'));
     }
 
 

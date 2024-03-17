@@ -8,6 +8,10 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AirportController;
 use App\Http\Controllers\FlightController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\BookingsController;
+
+
+
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -28,7 +32,9 @@ Route::post('/register', [RegisterController::class,'register']);
 Route::middleware(['UserAuth'])->group(function () {
     route::get('/user', [UserController::class, 'user'])->name('user');
 
- 
+    //booking 
+    Route::get('/bookings/create', [BookingsController::class, 'create'])->name('bookings.create');
+    Route::get('/bookings/confirmation/{id}', [BookingsController::class, 'confirmation'])->name('bookings.confirmation');
 
 });
 
@@ -47,7 +53,10 @@ Route::middleware(['AdminAuth'])->group(function () {
     Route::delete('/flights/{flight}',[FlightController::class, 'destroy'])->name('flights.destroy');
 
 
+    //bookings 
+
     
+    Route::get('/bookings', [BookingsController::class, 'index'])->name('bookings.index');
 
     // Routes for airport management
     Route::get('/airports', [AirportController::class, 'index'])->name('airports.a_index');
@@ -77,6 +86,12 @@ Route::middleware(['BothCanAccess'])->group(function () {
     Route::get('/flights/search', [FlightController::class, 'search'])->name('flights.search');
     Route::get('/flights/search-result', [FlightController::class, 'search'])->name('flights.search-result');
     
+    
+   
+    Route::post('/bookings/store', [BookingsController::class, 'store'])->name('bookings.store');
+    Route::get('/bookings/{booking}', [BookingsController::class, 'show'])->name('bookings.show');
+    Route::delete('/bookings/{id}', [BookingsController::class, 'destroy'])->name('bookings.destroy');
+
 });
 
 

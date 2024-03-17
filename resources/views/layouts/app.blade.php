@@ -124,7 +124,7 @@
         
         
         <!-- Main Content -->
-    <main class="flex-grow-1 d-flex mt-3">
+    <main class="flex-grow-1 d-flex mt-5">
 
         @if(!isset($hideNav) || !$hideNav)
         <!-- Sidebar -->
@@ -183,6 +183,10 @@
      <div class="container mb-5">
        <br><br><br>
        </div> 
+
+
+
+
 <!-- Footer -->
 <footer class="footer bg-dark navbar-dark mt-auto position-relative">
    <div class="container-fluid col-md-9 text-light">

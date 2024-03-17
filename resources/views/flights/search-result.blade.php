@@ -29,7 +29,11 @@
                             <td>{{ $flight->departure_date }}</td>
                             <td>{{ $flight->class }}</td>
                             <td>{{ $flight->price }}</td>
-                            <td><a href="#">Book</a></td>
+                            <td>
+                                <a href="{{ route('bookings.create', ['flight_id' => $flight->id]) }}">
+                                    Book Now
+                                </a>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -37,3 +41,8 @@
         @endif
     </div>
 @endsection
+
+
+@php
+$hideNav = true;
+@endphp
