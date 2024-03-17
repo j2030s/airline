@@ -95,11 +95,11 @@
                                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                             @if(Auth::user()->role_id === 1)
                                                 <a class="dropdown-item" href="{{ route('admin') }}">
-                                                    Admin Dashboard
+                                                    My Profile
                                                 </a>
                                             @elseif(Auth::user()->role_id === 2)
                                                 <a class="dropdown-item" href="{{ route('user') }}">
-                                                    User Dashboard
+                                                    My Profile
                                                 </a>
                                             @endif
                                             

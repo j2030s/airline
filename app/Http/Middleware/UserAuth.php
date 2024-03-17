@@ -5,17 +5,21 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Symfony\Component\HttpFoundation\Response;
 
 class UserAuth
 {
     public function handle(Request $request, Closure $next)
     {
-        if (!Auth::check() || Auth::user()->role_id !== 2) {
-            return redirect('/'); // Redirect unauthorized users to home page
+        // Check if the user is authenticated
+        if (!Auth::check()) {
+            return redirect()->route('login')->with('error', 'Please log in to access this page.');
+        }
+
+        // Check if the user has regular user role
+        if (Auth::user()->role_id !== 2) {
+            return redirect('/')->with('error', 'You do not have permission to access this page.');
         }
 
         return $next($request);
     }
-    }
-
+}
