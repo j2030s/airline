@@ -2,6 +2,8 @@
 
 @extends('layouts.app')
 
+@section('title', 'Booking Confirmation')
+
 @section('content')
     <div class="container mt-5">
         <h1>Booking Confirmation</h1>

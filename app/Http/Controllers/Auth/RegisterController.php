@@ -33,10 +33,10 @@ class RegisterController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role_id' => 2, // Assuming 2 is the role ID for users
+            'role_id' => 2, 
         ]);
 
-        // Redirect to a login page or dashboard
+        // Redirect to a login page 
         return redirect('/login')->with('status', 'Registration successful! Please log in.');
     }
 }

@@ -14,7 +14,6 @@ class AirportController extends Controller
 {
     // Fetch the list of airports
     $airports = Airports::all();
-    // $departingAirports = Airports::all();
 
     // Pass the airports data to the view
     return view('airports.a_index', compact('airports'));
@@ -103,10 +102,6 @@ public function search(Request $request)
 
     // Perform flight search based on the criteria
     $flightsQuery = Flights::query();
-    // $airports = Airports::query();
-    // $departingAirport = Flights :: join('airports','flights.departure_airport_id','=','airports.id')->select('airports.name as name')->get();
-    // $departingAirport = Flights :: join('airports','flights.arrival_airport_id','=','airports.id')->select('airports.name as name')->get;
-    
 
     if ($departingAirport) {
         $flightsQuery->where('departure_airport_id', $departingAirport);
@@ -125,9 +120,7 @@ public function search(Request $request)
     }
 
     $flights = $flightsQuery->get();
-    // $departingAirport = Flights :: join('airports','flights.departure_airport_id','=','airports.id')->select('airports.name as name')->get();
-    // $departingAirport = Flights :: join('airports','flights.arrival_airport_id','=','airports.id')->select('airports.name as name')->get;
-    // Return the search results to the view
+
     return view('flights.search-result', compact('flights'));
 }
 

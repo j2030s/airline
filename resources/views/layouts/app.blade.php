@@ -73,6 +73,8 @@
         
                             <!-- Right Side Of Navbar -->
                             <ul class="navbar-nav ms-auto">
+
+
                                 <!-- Authentication Links -->
                                 @guest
                                     @if (Route::has('login'))
@@ -86,6 +88,7 @@
                                             <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                                         </li>
                                     @endif
+
                                 @else
                                     <li class="nav-item dropdown">
                                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -93,10 +96,12 @@
                                         </a>
         
                                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                            
                                             @if(Auth::user()->role_id === 1)
                                                 <a class="dropdown-item" href="{{ route('admin') }}">
                                                     My Profile
                                                 </a>
+
                                             @elseif(Auth::user()->role_id === 2)
                                                 <a class="dropdown-item" href="{{ route('user') }}">
                                                     My Profile
@@ -146,10 +151,10 @@
 
 
    
-   <!-- Your main content goes here -->
+   <!-- main content goes here -->
    <div class="container-fluid " style="margin-top: 56px;">
        <div class="row">
-           <!-- Content area, adjust the classes based on your design -->
+           
            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
             @if (session('error'))
     <div class="alert alert-danger">

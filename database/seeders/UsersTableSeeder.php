@@ -31,6 +31,6 @@ class UsersTableSeeder extends Seeder
             'role_id' => 2, // 'user' role
         ]);
 
-        // Add more user records as needed...
+        
     }
 }

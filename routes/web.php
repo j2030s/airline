@@ -12,7 +12,7 @@ use App\Http\Controllers\BookingsController;
 
 
 
-
+//homepage
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // Login routes
@@ -28,8 +28,9 @@ Route::post('/register', [RegisterController::class,'register']);
 
 
 
-// Routes accessible to authenticated users
+// Routes for users only 
 Route::middleware(['UserAuth'])->group(function () {
+
     route::get('/user', [UserController::class, 'user'])->name('user');
 
     //booking 
@@ -45,6 +46,16 @@ Route::middleware(['AdminAuth'])->group(function () {
     route::get('/admin', [AdminController::class, 'admin'])->name('admin');
 
     // Routes for airport management
+    Route::get('/airports', [AirportController::class, 'index'])->name('airports.a_index');
+    Route::get('/airports/a_create', [AirportController::class, 'create'])->name('airports.a_create');
+    Route::POST('/airports', [AirportController::class, 'store'])->name('airports.store');
+    Route::get('/airports/{airport}/a_edit', [AirportController::class, 'edit'])->name('airports.edit');
+    Route::put('/airports/{airport}',  [AirportController::class, 'update'])->name('airports.update');
+    Route::delete('/airports/{airport}',[AirportController::class, 'destroy'])->name('airports.destroy');
+    Route::get('/airports/search', [AirportController::class, 'search'])->name('airports.search');
+    
+    
+    // Routes for flight management
     Route::get('/flights', [FlightController::class, 'index'])->name('flights.f_index');
     Route::get('/flights/f_create', [FlightController::class, 'create'])->name('flights.create');
     Route::post('/flights', [FlightController::class, 'store'])->name('flights.store');
@@ -54,18 +65,8 @@ Route::middleware(['AdminAuth'])->group(function () {
 
 
     //bookings 
-
-    
     Route::get('/bookings', [BookingsController::class, 'index'])->name('bookings.index');
 
-    // Routes for airport management
-    Route::get('/airports', [AirportController::class, 'index'])->name('airports.a_index');
-    Route::get('/airports/a_create', [AirportController::class, 'create'])->name('airports.a_create');
-    Route::POST('/airports', [AirportController::class, 'store'])->name('airports.store');
-    Route::get('/airports/{airport}/a_edit', [AirportController::class, 'edit'])->name('airports.edit');
-    Route::put('/airports/{airport}',  [AirportController::class, 'update'])->name('airports.update');
-    Route::delete('/airports/{airport}',[AirportController::class, 'destroy'])->name('airports.destroy');
-    Route::get('/airports/search', [AirportController::class, 'search'])->name('airports.search');
 
     // Routes for user management
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
@@ -76,9 +77,10 @@ Route::middleware(['AdminAuth'])->group(function () {
     Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
 
 
-  
-
 });
+
+
+//both user and admin can access this. but have to be logged in
 
 Route::middleware(['BothCanAccess'])->group(function () {
 
@@ -87,7 +89,7 @@ Route::middleware(['BothCanAccess'])->group(function () {
     Route::get('/flights/search-result', [FlightController::class, 'search'])->name('flights.search-result');
     
     
-   
+   //booking
     Route::post('/bookings/store', [BookingsController::class, 'store'])->name('bookings.store');
     Route::get('/bookings/{booking}', [BookingsController::class, 'show'])->name('bookings.show');
     Route::delete('/bookings/{id}', [BookingsController::class, 'destroy'])->name('bookings.destroy');

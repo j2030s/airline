@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Admin Flight Manage Page')
+@section('title', 'Flight Create')
 
 
 
@@ -41,7 +41,7 @@
             <!-- Departure Airport -->
             <div class="mb-3">
                 <label for="departure_airport_id" class="form-label">Departure Airport</label>
-                <!-- Assuming you have a list of airports retrieved from the database -->
+                
                 <select class="form-select" id="departure_airport_id" name="departure_airport_id" required>
                     <option value="">Select Departure Airport</option>
                     @foreach($airports as $airport)
@@ -53,7 +53,7 @@
             <!-- Arrival Airport -->
             <div class="mb-3">
                 <label for="arrival_airport_id" class="form-label">Arrival Airport</label>
-                <!-- Assuming you have a list of airports retrieved from the database -->
+                
                 <select class="form-select" id="arrival_airport_id" name="arrival_airport_id" required>
                     <option value="">Select Arrival Airport</option>
                     @foreach($airports as $airport)
@@ -85,7 +85,6 @@
                 <input type="text" class="form-control" id="price" name="price" required>
             </div>
 
-            <!-- Add more fields as needed -->
 
             <button type="submit" class="btn btn-primary">Create Flight</button>
         </form>

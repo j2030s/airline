@@ -1,6 +1,7 @@
 <!-- resources/views/flights/search-result.blade.php -->
 
 @extends('layouts.app')
+@section('title', 'Flight Search Result')
 
 @section('content')
     <div class="container mt-5">

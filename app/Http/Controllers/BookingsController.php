@@ -57,7 +57,7 @@ class BookingsController extends Controller
             'nationality' => 'nullable|string|max:255',
             'billing_address' => 'nullable|string|max:255',
             'payment_method' => 'required|string|in:credit_card,paypal',
-            // Add more validation rules as needed
+            
         ]);
 
         // Generate a random seat number

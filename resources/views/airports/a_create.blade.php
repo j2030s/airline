@@ -2,7 +2,7 @@
 
 @extends('layouts.app')
 
-@section('title', 'Admin Airport Management')
+@section('title', 'Airport Management')
 
 
 

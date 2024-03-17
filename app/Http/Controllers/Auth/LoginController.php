@@ -26,7 +26,7 @@ class LoginController extends Controller
         $request->session()->regenerate();
 
         // Redirect authenticated users to their dashboard
-        if (Auth::user()->role_id === 1) { // Assuming 1 is the role ID for admins
+        if (Auth::user()->role_id === 1) { 
             return redirect()->intended('/admin');
         } else {
             return redirect()->intended('/user');

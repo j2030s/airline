@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Admin Flight Manage Page')
+@section('title', 'Admin Flight Edit')
 
 
 
@@ -47,7 +47,7 @@
         <div class="mb-3">
             <label for="departure_airport_id" class="form-label">Departure Airport</label>
             <select class="form-select" id="departure_airport_id" name="departure_airport_id" required>
-                <!-- Populate with airports from the database -->
+                
                 @foreach($airports as $airport)
                     <option value="{{ $airport->id }}" {{ $airport->id == $flight->departure_airport_id ? 'selected' : '' }}>
                         {{ $airport->name }}
@@ -60,7 +60,7 @@
         <div class="mb-3">
             <label for="arrival_airport_id" class="form-label">Arrival Airport</label>
             <select class="form-select" id="arrival_airport_id" name="arrival_airport_id" required>
-                <!-- Populate with airports from the database -->
+              
                 @foreach($airports as $airport)
                     <option value="{{ $airport->id }}" {{ $airport->id == $flight->arrival_airport_id ? 'selected' : '' }}>
                         {{ $airport->name }}
@@ -93,7 +93,7 @@
             <input type="text" class="form-control" id="price" name="price" value="{{ $flight->price }}" required>
         </div>
 
-        <!-- Add more fields as needed -->
+     
 
         <button type="submit" class="btn btn-primary">Update Flight</button>
     </form>

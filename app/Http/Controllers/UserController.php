@@ -53,14 +53,14 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|string|min:6',
-            // Add more validation rules as needed
+            
         ]);
 
         User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password), // Hash the password for security
-            // Add more fields as needed
+           
         ]);
 
         return redirect()->route('users.index')->with('success', 'User created successfully!');
@@ -76,13 +76,13 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $user->id, // Ignore the unique email rule for the current user
-            // Add more validation rules as needed
+           
         ]);
 
         $user->update([
             'name' => $request->name,
             'email' => $request->email,
-            // Update other fields as needed
+           
         ]);
 
         return redirect()->route('users.index')->with('success', 'User updated successfully!');

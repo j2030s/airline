@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Create Bookings')
+
 @section('content')
     <div class="container mt-5">
         <h1>Book Flight</h1>

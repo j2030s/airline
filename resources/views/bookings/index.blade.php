@@ -44,7 +44,7 @@
                     <th>Nationality</th>
                     <th>Billing Address</th>
                     <th>Payment Method</th>
-                    <th>Edit</th>
+                    
                     <th>Delete</th>
                 </tr>
             </thead>

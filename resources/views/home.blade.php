@@ -1,21 +1,19 @@
 @extends('layouts.app')
 
-@section('title', 'Admin Page')
+@section('title', 'Home Page')
         
 
 @section('content')     
 
+<!-- Main Content -->
+<main class="flex-grow-1 d-flex">
 
-            <!-- Main Content -->
-    <main class="flex-grow-1 d-flex">
-         <!-- Sidebar -->
      
 
 
-        <!-- Your main content goes here -->
-        <div class="container-fluid " style="margin-top: 56px;">
-            
-                   
+<!-- main content goes here -->
+<div class="container-fluid " style="margin-top: 56px;">
+                  
 
     <section class="bg-light text-dark p-4 text-center text-sm-start">
         <div class="container">
@@ -27,9 +25,7 @@
                              </h6> </i></b>
                     </div>
                     
-                        <img class="img-fluid  w-50 ms-auto" src="img/bbard.png" >
-                  
-                        
+                        <img class="img-fluid  w-50 ms-auto" src="img/bbard.png" >   
                 </div>
             </div>
             
@@ -38,9 +34,7 @@
 
 
 
-    <section class="p-6">
-        
-
+<section class="p-6">
 <div class="container mt-5">
     <ul class="nav nav-tabs p-3 mt-3 ml-6" style="max-width: 750px;">
         <li class="nav-item">
@@ -51,24 +45,27 @@
     <div class="card p-3 mt-3 ml-6" style="max-width: 750px;">
         <form action="{{ route('flights.search') }}" method="GET">
             <div class="mb-3">
-                    <select id="setectRole" name="departing_airport" class="form-select form-control"
-                                        aria-label="Default select example">
-                                        <option selected value="">Departing Airport</option>
-                                        @foreach($departingAirports as $airport)
-                                        <option value="{{ $airport->id }}">{{ $airport->name }}</option>
-                                    @endforeach 
-                                    </select>
+                    <select id="setectRole" name="departing_airport" class="form-select form-control"aria-label="Default select example">
+                            
+                        <option selected value=""> Departing Airport </option>
+
+                        @foreach($departingAirports as $airport)
+                            <option value="{{ $airport->id }}">{{ $airport->name }}</option>
+                        @endforeach 
+                    </select>
             </div>
 
             <div class="mb-3">
-                <select id="setectRole" name="arriving_airport" class="form-select form-control"
-                                    aria-label="Default select example">
-                                    <option selected value="">Arriving Airport</option>
-                                    @foreach($departingAirports as $airport)
-                                    <option value="{{ $airport->id }}">{{ $airport->name }}</option>
-                                @endforeach 
-                                </select>
-        </div>
+                <select id="setectRole" name="arriving_airport" class="form-select form-control"  aria-label="Default select example">
+                                   
+                    <option selected value="">Arriving Airport</option>
+
+                    @foreach($departingAirports as $airport)
+                        <option value="{{ $airport->id }}">{{ $airport->name }}</option>
+                    @endforeach 
+
+                </select>
+            </div>
 
             <div class="mb-3">
                 <label for="date" class="form-label">Departing Date:</label>
@@ -94,41 +91,26 @@
 
 
 
-    <section class="p-5">
-        <div class="container">
-            <div class="row text-center g-4">
-                <div class="col-md"><div class="card" style="width: 18rem;">
-                    <img src="img/airlines.png" class="card-img-top" alt="...">
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                      <a href="#" class="btn btn-primary">Go somewhere</a>
+ <section class="p-5">
+    <div class="container">
+        <h2 class="text-center mb-5">Available Flights</h2>
+        <div class="row text-center g-4">
+            @foreach ($latestFlights->take(6) as $flight)
+                <div class="col-md">
+                    <div class="card" style="width: 18rem;">
+                        <img src="img/airlines.png" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <p class="card-text"> <b>Departure Airport:</b> {{ $flight->departureAirport->name }}</p>
+                            <p class="card-text"><b>Arrival Airport: </b>{{ $flight->arrivalAirport->name }}</p>
+                            <p class="card-text"><b>Departure Date: </b>{{ $flight->departure_date }}</p>
+                            <a href="#" class="btn btn-primary">Book Now</a>
+                        </div>
                     </div>
-                  </div>
                 </div>
-                <div class="col-md">
-                    <div class="card" style="width: 18rem;">
-                        <img src="img/airlines.png" class="card-img-top" alt="...">
-                        <div class="card-body">
-                          <h5 class="card-title">Card title</h5>
-                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                          <a href="#" class="btn btn-primary">Go somewhere</a>
-                        </div>
-                      </div>
-                </div>
-                <div class="col-md">
-                    <div class="card" style="width: 18rem;">
-                        <img src="img/airlines.png" class="card-img-top" alt="...">
-                        <div class="card-body">
-                          <h5 class="card-title">Card title</h5>
-                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                          <a href="#" class="btn btn-primary">Go somewhere</a>
-                        </div>
-                      </div>
-                </div>
-            </div>
+            @endforeach
         </div>
-    </section>
+    </div>
+</section>
 
 
     <section id= "more" class="p-5">

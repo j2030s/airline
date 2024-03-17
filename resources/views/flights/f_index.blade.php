@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Admin Flight Manage Page')
+@section('title', 'Admin Flight Index')
 
 
 
